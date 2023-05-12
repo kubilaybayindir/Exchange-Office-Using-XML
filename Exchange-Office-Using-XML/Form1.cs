@@ -23,7 +23,6 @@ namespace Exchange_Office_Using_XML
         private void Form1_Load(object sender, EventArgs e)
         {
             
-            CbxCurrency.DataSource = currencyAry;
             string filename = "https://www.tcmb.gov.tr/kurlar/today.xml";
             var xmlDocument = new XmlDocument();
             xmlDocument.Load(filename);
@@ -68,6 +67,21 @@ namespace Exchange_Office_Using_XML
             currencyPrice = Convert.ToDouble(TbxCurrency.Text);
             amount = Convert.ToDouble(TbxAmount.Text);
             total = currencyPrice * amount;
+            TbxTotal.Text = total.ToString();
+        }
+
+        private void TbxCurrency_TextChanged(object sender, EventArgs e)
+        {
+            TbxCurrency.Text = TbxCurrency.Text.Replace(".", ",");
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            double currencyPrice = Convert.ToDouble(TbxCurrency.Text);
+            int amount = Convert.ToInt32(TbxAmount.Text);
+            int total = Convert.ToInt32(amount / currencyPrice);
+            double reminder = Convert.ToDouble(amount % currencyPrice);
+            TbxReminder.Text = reminder.ToString("N4");
             TbxTotal.Text = total.ToString();
         }
     }
